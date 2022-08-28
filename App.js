@@ -6,20 +6,21 @@
  * @flow strict-local
  */
 
+import { NavigationContainer } from '@react-navigation/native';
 import React from 'react';
 import {
   SafeAreaView,
   StyleSheet,
-  Text,
 } from 'react-native';
-import SignIn from './src/screens/SignIn/SignIn';
-import SplashScreen from './src/screens/SplashScreen/SplashScreen';
+import StackNavigator from './StackNavigator';
 
 const App = () => {
   return (
-    <SafeAreaView style={styles.root}>
-      <SplashScreen/>
-    </SafeAreaView>
+    <NavigationContainer>
+      <SafeAreaView style={styles.root}>
+        <StackNavigator/>
+      </SafeAreaView>
+    </NavigationContainer>
   );
 };
 
