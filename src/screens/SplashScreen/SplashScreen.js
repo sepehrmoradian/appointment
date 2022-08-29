@@ -1,6 +1,6 @@
-import { View, Text, Dimensions, StyleSheet, Image, TouchableOpacity } from 'react-native'
+import { View, Text, Dimensions, StyleSheet, TouchableOpacity,StatusBar } from 'react-native'
 import React from 'react'
-//import MaterialIcons from "react-native-vector-icons/MaterialIcons"
+import MaterialIcons from "react-native-vector-icons/MaterialIcons"
 import LinearGradient from 'react-native-linear-gradient'
 import * as Animatable from 'react-native-animatable'
 import { useNavigation } from '@react-navigation/native'
@@ -10,6 +10,7 @@ const SplashScreen = () => {
 const navigation = useNavigation();
   return (
     <View style={styles.container}>
+            <StatusBar backgroundColor='#fe8690' barStyle='light-content'/>
         <View style={styles.header}>
             <Animatable.Image
                 animation='bounceIn'
@@ -32,7 +33,11 @@ const navigation = useNavigation();
                     style={styles.signIn}
                 >
                     <Text style={styles.textSign}>Get Started</Text>
-                    
+                    <MaterialIcons
+                        name='navigate-next'
+                        color='#fff'
+                        size={20}
+                    />
                 </LinearGradient>
             </TouchableOpacity>
             </View>
@@ -91,7 +96,7 @@ const styles = StyleSheet.create({
     textSign: {
         color: 'white',
         fontWeight: 'bold'
-  }
+    }
 
 });
 

@@ -6,13 +6,15 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import Feather from 'react-native-vector-icons/Feather'
 import { useNavigation } from '@react-navigation/native'
 
-const SignIn = () => {
+const SignUp = () => {
 
     const [data, setData] = React.useState({
         email: '',
         password: '',
         check_textInputChange: false,
-        secureTextEntry: true
+        confirm_password:'',
+        secureTextEntry: true,
+        confirm_secureTextEntry: true
     });
 
     const textInputChange = (val) => {
@@ -47,10 +49,33 @@ const SignIn = () => {
         }
     }
 
+    const handleConfirmPasswordChange = (val) => {
+        if( val.trim().length >= 8 ) {
+            setData({
+                ...data,
+                confirm_password: val,
+                isValidPassword: true
+            });
+        } else {
+            setData({
+                ...data,
+                confirm_password: val,
+                isValidPassword: false
+            });
+        }
+    }
+
     const updateSecureTextEntry = () => {
         setData({
             ...data,
             secureTextEntry: !data.secureTextEntry
+        });
+    }
+
+    const updateConfirmSecureTextEntry = () => {
+        setData({
+            ...data,
+            confirm_secureTextEntry: !data.confirm_secureTextEntry
         });
     }
 
@@ -60,7 +85,7 @@ const SignIn = () => {
         <View style={styles.container}>
                 <StatusBar backgroundColor='#009387' barStyle='light-content'/>
             <View style={styles.header}>
-                <Text style={styles.text_header}>Welcome!</Text>
+                <Text style={styles.text_header}>Signing Up is Easy!</Text>
             </View>
             <Animatable.View 
                 style={styles.footer}
@@ -125,6 +150,39 @@ const SignIn = () => {
                     </TouchableOpacity>
                 </View>
 
+                <Text style={[styles.text_footer, {marginTop:35}]}>Confirm Password</Text>
+                <View style={styles.action}>
+                    <Feather
+                        name='lock'
+                        color='#05375a'
+                        size={20}
+                    />
+                    <TextInput
+                        placeholder='Confirm Your Password'
+                        confirm_secureTextEntry={data.confirm_secureTextEntry ? true : false}
+                        style={styles.textInput}
+                        autoCapitalize='none'
+                        onChangeText={(val)=>handleConfirmPasswordChange(val)}
+                    />
+                    <TouchableOpacity
+                        onPress={updateConfirmSecureTextEntry}
+                    >
+                        {data.secureTextEntry ?
+                        <Feather
+                            name='eye-off'
+                            color='grey'
+                            size={20}
+                        /> 
+                        :
+                        <Feather
+                            name='eye'
+                            color='grey'
+                            size={20}
+                        />
+                        }
+                    </TouchableOpacity>
+                </View>
+
                 <View style={styles.button}>
                     <LinearGradient
                         colors={['#08d4c4', '#01ab9d']}
@@ -132,11 +190,11 @@ const SignIn = () => {
                     >
                         <Text style={[styles.textSign, {
                             color: '#fff'
-                        }]}>Sign In</Text>
+                        }]}>Sign Up</Text>
                     </LinearGradient>
 
                     <TouchableOpacity
-                        onPress={() => navigation.navigate('SignUp')}
+                        onPress={() => navigation.goBack()}
                         style={[styles.signIn, {
                             borderColor: '#009387',
                             borderWidth: 1,
@@ -145,7 +203,7 @@ const SignIn = () => {
                     >
                         <Text style={[styles.textSign, {
                             color: '#009387'
-                        }]}>Sign Up</Text>
+                        }]}>Sign In</Text>
                     </TouchableOpacity>
                 </View>
             </Animatable.View>
@@ -153,7 +211,7 @@ const SignIn = () => {
     )
 }
 
-export default SignIn
+export default SignUp
 
 const styles = StyleSheet.create({
     container: {
